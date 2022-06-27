@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sample</title>
+</head>
+
+<body>
+  <div class="wrapper"></div>
+
+  <div class="modal js-modal">
+    <div class="modal-bg js-modal-close"></div>
+    <div class="modal-inner">
+      <p>ここにモーダルウィンドウで表示したいコンテンツを入れます。</p>
+      <p><a href="https://www.google.com/" target="_blank">google</a></p>
+      <div class="modal-box">
+        <a class="js-modal-close modal-btn" href="">閉じる</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      var modalOpen = function() {
+        $("html,body").css({ "overflow": "hidden", "height": "100%" });
+        $('.js-modal').fadeIn();
+      };
+
+      var modalClose = function() {
+        $('.js-modal-close').on('click', function () {
+          $("html,body").removeAttr("style");
+          $('.js-modal').fadeOut();
+          return false;
+        });
+      };
+
+      $(function(){
+        if (document.cookie.indexOf('firstVisit=y') === -1) {
+          document.cookie = 'firstVisit=y; path=/';
+          modalOpen();
+        }
+        modalClose();
+      });
+    })(jQuery);
+  </script>
+
+  <script>
+    (function ($) {
+        var strGetDateTime = function (str) {
+          var arr = str.split(/[年月]/);
+          if (arr.length > 2) {
+            var date = new Date(arr[0], arr[1]);
+            return date.getTime();
+          }
+        };
+
+        $(function () {
+          var baseDate = "2023年3月";
+          var baseDateTime = strGetDateTime(baseDate);
+          var getDate = document.getElementById("js-nextdate").innerText;
+          var getDateTime = strGetDateTime(getDate);
+
+          if (baseDateTime < getDateTime) {
+            $("#js-box-nextdate").hide();
+          }
+        });
+      })(jQuery);
+  </script>
+</body>
+</html>
